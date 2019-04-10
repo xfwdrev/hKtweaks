@@ -1,12 +1,14 @@
 {
-  "latestVersion": "2.10.0",
-  "latestVersionCode": "2100",
-  "url": "https://github.com/morogoku/MTweaks-KernelAdiutorMOD/releases/download/v2.10.0/MTweaks_v2.10.0.apk",
+  "latestVersion": "2.14.0",
+  "latestVersionCode": "2140",
+  "url": "https://github.com/morogoku/MTweaks-KernelAdiutorMOD/releases/download/v2.14.0/MTweaks_v2.14.0.apk",
   "releaseNotes": [
     "Changelog:",
-    "- Optimzie GPU Options",
-    "- Updated to latest libs and SDK 28",
-    "- Updated French language",
-    "- New Mif, Int, Disp, Cam Voltage Control"
+    "- Update to gradle plugin 3.3.2",
+    "- InitVariables after root check",
+    "- Remove crashlytics",
+    "- MoroSound Control, by Grouxho",
+    "- CPU: Allow Big cores to max freq (need kernel support)",
+    "- Fix init.d setting"
   ]
 }
