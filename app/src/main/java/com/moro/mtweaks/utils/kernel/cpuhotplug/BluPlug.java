@@ -41,6 +41,13 @@ public class BluPlug {
     private static final String HOTPLUG_BLU_PLUG_UP_THRESHOLD = HOTPLUG_BLU_PLUG + "/up_threshold";
     private static final String HOTPLUG_BLU_PLUG_UP_TIMER_CNT = HOTPLUG_BLU_PLUG + "/up_timer_cnt";
     private static final String HOTPLUG_BLU_PLUG_DOWN_TIMER_CNT = HOTPLUG_BLU_PLUG + "/down_timer_cnt";
+    private static final String HOTPLUG_BLU_PLUG_PLUG_THRESHOLD = HOTPLUG_BLU_PLUG + "/plug_threshold";
+
+    private static final String STATE_NOTIFIER = "/sys/module/state_notifier/parameters/enabled";
+
+    public static void enableStateNotifier(boolean enable, Context context) {
+        run(Control.write(enable ? "Y" : "N", STATE_NOTIFIER), STATE_NOTIFIER, context);
+    }
 
     public static void setBluPlugDownTimerCnt(int value, Context context) {
         run(Control.write(String.valueOf(value), HOTPLUG_BLU_PLUG_DOWN_TIMER_CNT),
@@ -54,6 +61,22 @@ public class BluPlug {
     public static boolean hasBluPlugDownTimerCnt() {
         return Utils.existFile(HOTPLUG_BLU_PLUG_DOWN_TIMER_CNT);
     }
+
+// added by @nalas
+	public static void setBluPlugPlugThreshold(int value, Context context) {
+        // run(Control.write(String.valueOf(value), HOTPLUG_BLU_PLUG_PLUG_THRESHOLD),
+		run(Control.write(String.valueOf(value), HOTPLUG_BLU_PLUG_PLUG_THRESHOLD),
+                HOTPLUG_BLU_PLUG_PLUG_THRESHOLD, context);
+    }
+
+    public static int getBluPlugPlugThreshold() {
+        return Utils.strToInt(Utils.readFile(HOTPLUG_BLU_PLUG_PLUG_THRESHOLD));
+    }
+	
+    public static boolean hasBluPlugPlugThreshold() {
+        return Utils.existFile(HOTPLUG_BLU_PLUG_PLUG_THRESHOLD);
+    }
+// end
 
     public static void setBluPlugUpTimerCnt(int value, Context context) {
         run(Control.write(String.valueOf(value), HOTPLUG_BLU_PLUG_UP_TIMER_CNT),

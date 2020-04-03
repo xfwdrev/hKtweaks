@@ -1,14 +1,12 @@
 {
-  "latestVersion": "2.14.0",
-  "latestVersionCode": "2140",
-  "url": "https://github.com/morogoku/MTweaks-KernelAdiutorMOD/releases/download/v2.14.0/MTweaks_v2.14.0.apk",
+  "latestVersion": "2.17.0",
+  "latestVersionCode": "2170",
+  "url": "https://github.com/morogoku/MTweaks-KernelAdiutorMOD/releases/download/v2.17.0/MTweaks_v2.17.0.apk",
   "releaseNotes": [
     "Changelog:",
-    "- Update to gradle plugin 3.3.2",
-    "- InitVariables after root check",
-    "- Remove crashlytics",
-    "- MoroSound Control, by Grouxho",
-    "- CPU: Allow Big cores to max freq (need kernel support)",
-    "- Fix init.d setting"
+    "- Updated Spectrum Tile to request less root access.",
+    "- Added support for CPUs of 3 clusters: S10, Note 10 and S20.",
+    "- Updated CpuSpy for 3 clusters.",
+    "- Temperatures for S10, Note10 and S20."
   ]
 }

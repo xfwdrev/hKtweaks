@@ -191,6 +191,10 @@ public class MainActivity extends BaseActivity {
                 if (!AppSettings.getBoolean("gpu_onboot", false, mRefActivity.get())) {
                     AppSettings.saveInt("gpu_seekbarPref_value", GPUFragment.mDefZeroPosition, mRefActivity.get());
                 }
+
+                // update spectrum support and profile
+                AppSettings.saveBoolean("spectrum_supported", Spectrum.suSupported(), mRefActivity.get());
+                AppSettings.saveInt("spectrum_profile", Spectrum.getSuProfile(), mRefActivity.get());
             }
             AppSettings.saveBoolean("is_booted", false, mRefActivity.get());
 
@@ -198,10 +202,6 @@ public class MainActivity extends BaseActivity {
             if (!Utils.existFile("/data/.mtweaks")) {
                 RootUtils.runCommand("mkdir /data/.mtweaks");
             }
-
-            // Initialice profile Sharedpreference
-            int prof = Utils.strToInt(Spectrum.getProfile());
-            AppSettings.saveInt("spectrum_profile", prof, mRefActivity.get());
 
             // Check if kernel is changed
             String kernel_old = AppSettings.getString("kernel_version_old", "", mRefActivity.get());
@@ -314,6 +314,13 @@ public class MainActivity extends BaseActivity {
                 if (pool >= 100) AppSettings.saveBoolean("memory_pool_percent", false, mRefActivity.get());
                 if (pool < 100) AppSettings.saveBoolean("memory_pool_percent", true, mRefActivity.get());
                 AppSettings.saveBoolean("memory_pool_percent_saved", true, mRefActivity.get());
+            }
+
+            // Save GPU libs version
+            if (!AppSettings.getBoolean("gpu_lib_version_saved", false, mRefActivity.get())){
+                AppSettings.saveString("gpu_lib_version",
+                        RootUtils.runCommand("dumpsys SurfaceFlinger | grep GLES | head -n 1 | cut -f 3,4,5 -d ','"), mRefActivity.get());
+                AppSettings.saveBoolean("gpu_lib_version_saved", true, mRefActivity.get());
             }
         }
 

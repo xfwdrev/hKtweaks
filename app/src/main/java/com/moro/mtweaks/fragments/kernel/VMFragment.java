@@ -21,6 +21,8 @@ package com.moro.mtweaks.fragments.kernel;
 
 import android.text.InputType;
 
+import androidx.appcompat.app.AlertDialog;
+
 import com.moro.mtweaks.R;
 import com.moro.mtweaks.fragments.ApplyOnBootFragment;
 
@@ -36,11 +38,13 @@ import com.moro.mtweaks.views.recyclerview.GenericSelectView2;
 import com.moro.mtweaks.views.recyclerview.ProgressBarView;
 import com.moro.mtweaks.views.recyclerview.RecyclerViewItem;
 import com.moro.mtweaks.views.recyclerview.SeekBarView;
+import com.moro.mtweaks.views.recyclerview.SelectView;
 import com.moro.mtweaks.views.recyclerview.SwitchView;
 import com.moro.mtweaks.views.recyclerview.TitleView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by willi on 29.06.16.
@@ -159,11 +163,16 @@ public class VMFragment extends RecyclerViewFragment {
         }
     }
 
+    private SwitchView zramSw;
+    private SelectView zramComp;
+    private SeekBarView zram;
+
     private void zramInit(List<RecyclerViewItem> items) {
         boolean isZramEnabled = ZRAM.isEnabled();
 
-        SeekBarView zram = new SeekBarView();
-
+        zramSw = new SwitchView();
+        zramComp = new SelectView();
+        zram = new SeekBarView();
 
         CardView zramCard = new CardView(getActivity());
         zramCard.setTitle(getString(R.string.zram));
@@ -172,23 +181,45 @@ public class VMFragment extends RecyclerViewFragment {
         zramDesc.setTitle(getString(R.string.disksize_summary));
         zramCard.addItem(zramDesc);
 
-        SwitchView zramSw = new SwitchView();
         zramSw.setTitle(getString(R.string.zram));
         zramSw.setSummary(getString(R.string.zramsw_summary));
         zramSw.setChecked(isZramEnabled);
         zramSw.addOnSwitchListener((switchView, isChecked) -> {
-            ZRAM.enable(isChecked, getActivity());
-            zram.setEnabled(!isChecked);
+            if (isChecked){
+                ZRAM.enable(true, getActivity());
+                zramComp.setEnabled(false);
+                zram.setEnabled(false);
+            } else {
+                if(ZSwap.hasEnable() && !ZSwap.isEnabled()) {
+                    dialogZram();
+                } else {
+                    ZRAM.enable(false, getActivity());
+                    zramComp.setEnabled(true);
+                    zram.setEnabled(true);
+                    zram.setProgress(0);
+                    ZRAM.setDisksize(0, getActivity());
+                }
+            }
         });
 
         zramCard.addItem(zramSw);
 
 
+        zramComp.setEnabled(!isZramEnabled);
+        zramComp.setTitle(getString(R.string.zram_comp_algorithm));
+        zramComp.setSummary(getString(R.string.zram_comp_algorithm_summary));
+        zramComp.setItems(ZRAM.getCompAlgorithms());
+        zramComp.setItem(ZRAM.getCompAlgorithm());
+        zramComp.setOnItemSelected((selectView, position, item)
+                -> ZRAM.setCompAlgorithm(item, getActivity()));
+
+        zramCard.addItem(zramComp);
+
         zram.setEnabled(!isZramEnabled);
         zram.setTitle(getString(R.string.disksize));
         zram.setSummary(getString(R.string.disksize_summary2));
         zram.setUnit(getString(R.string.mb));
-        zram.setMax(2560);
+        zram.setMax(4096);
         zram.setOffset(32);
         zram.setProgress(ZRAM.getDisksize() / 32);
         zram.setOnSeekBarListener(new SeekBarView.OnSeekBarListener() {
@@ -214,6 +245,7 @@ public class VMFragment extends RecyclerViewFragment {
         zswapCard.setTitle(getString(R.string.zswap));
 
         if (ZSwap.hasEnable()) {
+
             SwitchView zswap = new SwitchView();
             zswap.setTitle(getString(R.string.zswap));
             zswap.setSummary(getString(R.string.zswap_summary));
@@ -290,6 +322,26 @@ public class VMFragment extends RecyclerViewFragment {
         if (zswapCard.size() > 0) {
             items.add(zswapCard);
         }
+    }
+
+    private void dialogZram() {
+
+        AlertDialog.Builder alert = new AlertDialog.Builder(Objects.requireNonNull(getActivity()));
+        alert.setTitle(getString(R.string.wkl_alert_title));
+        alert.setMessage(getString(R.string.zram_dialog));
+        alert.setNegativeButton(getString(R.string.cancel), (dialog, which) -> {
+            zramSw.setChecked(true);
+        });
+        alert.setPositiveButton("OK", (dialog, id) -> {
+            ZRAM.enable(false, getActivity());
+            zram.setEnabled(true);
+            zramComp.setEnabled(true);
+            ZRAM.setDisksize(0, getActivity());
+            getActivity().finish();
+        });
+        alert.setCancelable(false);
+
+        alert.show();
     }
 
     private void refreshVMs() {
