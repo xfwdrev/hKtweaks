@@ -169,6 +169,7 @@
   <string name="interval_summary">Intervalo mínimo que se aplica el potenciado de la CPU.</string>
   <string name="sync_threshold">Umbral de sincronización</string>
   <string name="sync_threshold_summary">Cuando la carga de CPU cruza el límite prefijado, la frecuencia actual aumenta a esta.</string>
+  <string name="ib_summary">Aumenta la CPU al pulsar la pantalla táctil. Las frecuencias y duraciones del aumento se calculan automáticamente.</string>
   <string name="ib_duration_ms">Duración ms</string>
   <string name="ib_freq_little">Boost Freq. LITTLE A53</string>
   <string name="ib_freq_big">Boost Freq. big A72</string>
@@ -185,6 +186,7 @@
   <string name="touch_boost_summary">Esto aumentará la velocidad mínima de la CPU si toca la pantalla o pulsa un botón.</string>
   <string name="big_cores_max_title">Permitir 4 Cores a máxima freq.</string>
   <string name="big_cores_max_summary">Permite a los 4 BIG Cores ir a la máxima freqcuencia, aumenta el rendimiento, pero consumira mas bateria</string>
+  <string name="fingerprint_boost_summary">Las CPU disponibles aumentarán a la máxima frecuencia al pulsar el sensor de huella.</string>
   <!-- CPU Voltage -->
   <string name="global_offset">Ajuste Global</string>
   <string name="override_vmin">Sobrescribir voltaje mínimo</string>
@@ -821,6 +823,12 @@
   <string name="memory_pool_summary">Porcentaje de piscina de memoria de la memoria principal que puede ser usada como cache de página comprimido.</string>
   <string name="maximum_compression_ratio">Relación de compresión máxima</string>
   <string name="maximum_compression_ratio_summary">Relación de compresión máxima, expresada en porcentaje, de una página comprimida aceptable. Se rechazará cualquier página no comprimida al menos en esta relación.</string>
+  <string name="zram_comp_algorithm">Compresión ZRAM</string>
+  <string name="zram_comp_algorithm_summary">Desactive primero ZRAM para poder ajustar la compresión.</string>
+  <string name="zram_lzo">lzo</string>
+  <string name="zram_lz4">lz4</string>
+  <string name="zram_deflate">deflate</string>
+  <string name="zram_none">Algoritmo de compresión desconocido o ZRAM no soportada!</string>
   <!-- Entropy -->
   <string name="available">Disponible</string>
   <string name="poolsize">Tamaño del Pool</string>
