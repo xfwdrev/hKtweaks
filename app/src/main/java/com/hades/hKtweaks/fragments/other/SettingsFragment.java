@@ -65,6 +65,7 @@ import com.hades.hKtweaks.utils.ViewUtils;
 import com.hades.hKtweaks.utils.root.RootUtils;
 import com.hades.hKtweaks.views.BorderCircleView;
 import com.hades.hKtweaks.views.dialog.Dialog;
+import com.jaredrummler.cyanea.prefs.CyaneaSettingsActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -86,6 +87,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
     //private static final String KEY_MATERIAL_ICON = "materialicon";
     private static final String KEY_BANNER_RESIZER = "banner_resizer";
     private static final String KEY_HIDE_BANNER = "hide_banner";
+    private static final String KEY_THEME_CHOOSER = "theme_chooser";
     private static final String KEY_PRIMARY_COLOR = "primary_color";
     private static final String KEY_ACCENT_COLOR = "accent_color";
     private static final String KEY_SECTIONS_ICON = "section_icons";
@@ -151,14 +153,15 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
         }
 */
         findPreference(KEY_RESET_DATA).setOnPreferenceClickListener(this);
+        findPreference(KEY_THEME_CHOOSER).setOnPreferenceClickListener(this);
         findPreference(KEY_UPDATE_NOTIFICATION).setOnPreferenceChangeListener(this);
         findPreference(KEY_CHECK_UPDATE).setOnPreferenceClickListener(this);
-        findPreference(KEY_DARK_THEME).setOnPreferenceChangeListener(this);
-        findPreference(KEY_DARK_THEME_MODE).setOnPreferenceChangeListener(this);
+        //findPreference(KEY_DARK_THEME).setOnPreferenceChangeListener(this);
+        //findPreference(KEY_DARK_THEME_MODE).setOnPreferenceChangeListener(this);
         findPreference(KEY_BANNER_RESIZER).setOnPreferenceClickListener(this);
         findPreference(KEY_HIDE_BANNER).setOnPreferenceChangeListener(this);
-        findPreference(KEY_PRIMARY_COLOR).setOnPreferenceClickListener(this);
-        findPreference(KEY_ACCENT_COLOR).setOnPreferenceClickListener(this);
+        //findPreference(KEY_PRIMARY_COLOR).setOnPreferenceClickListener(this);
+        //findPreference(KEY_ACCENT_COLOR).setOnPreferenceClickListener(this);
         findPreference(KEY_SECTIONS_ICON).setOnPreferenceChangeListener(this);
         findPreference(KEY_APPLY_ON_BOOT_TEST).setOnPreferenceClickListener(this);
         findPreference(KEY_LOGCAT).setOnPreferenceClickListener(this);
@@ -270,6 +273,9 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
     public boolean onPreferenceClick(Preference preference) {
         String key = preference.getKey();
         switch (key) {
+            case KEY_THEME_CHOOSER:
+                startActivity(new Intent(getActivity(), CyaneaSettingsActivity.class));
+                return true;
             case KEY_RESET_DATA:
                 resetDataDialog();
                 return true;

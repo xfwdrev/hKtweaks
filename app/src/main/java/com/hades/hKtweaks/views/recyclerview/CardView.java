@@ -103,7 +103,7 @@ public class CardView extends RecyclerViewItem {
         mArrow = view.findViewById(R.id.arrow_image);
         mLayoutParent = view.findViewById(R.id.layout_parent);
         mLayout = view.findViewById(R.id.card_layout);
-        if(mGrxIsInitSelected) this.setCardBackgroundColor(mGrxColor);
+        //if(mGrxIsInitSelected) this.setCardBackgroundColor(mGrxColor);
     }
 
     @Override

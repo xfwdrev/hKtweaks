@@ -32,8 +32,8 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         android:focusable="false"
+        android:background="?backgroundColor"
         android:theme="@style/ItemTextAppearance"
-        android:background="?colorSecondary"
         app:headerLayout="@layout/nav_header_layout" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

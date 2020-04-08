@@ -39,19 +39,20 @@ import com.hades.hKtweaks.utils.AppSettings;
 import com.hades.hKtweaks.utils.Themes;
 import com.hades.hKtweaks.utils.Utils;
 import com.hades.hKtweaks.utils.ViewUtils;
+import com.jaredrummler.cyanea.app.CyaneaAppCompatActivity;
 
 import java.util.Locale;
 
 /**
  * Created by willi on 14.04.16.
  */
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends CyaneaAppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
 
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
-        Utils.DARK_THEME = Themes.isDarkTheme(this);
+      /*  Utils.DARK_THEME = Themes.isDarkTheme(this);
         Utils.AMOLED_DARK_THEME = Themes.isAmoledBlack(this);
         Themes.Theme theme = Themes.getTheme(this, Utils.DARK_THEME, Utils.AMOLED_DARK_THEME);
         if (Utils.DARK_THEME) {
@@ -59,7 +60,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
-        setTheme(theme.getStyle());
+       */
+        setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && setStatusBarColor()) {

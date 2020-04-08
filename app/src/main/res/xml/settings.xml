@@ -32,6 +32,11 @@
     <PreferenceCategory
         android:key="user_interface"
         android:title="@string/user_interface">
+        <Preference
+            android:key="theme_chooser"
+            app:title="Theme"
+            app:summary="App theme chooser"/>
+        <!--
         <SwitchPreferenceCompat
             android:key="darktheme"
             android:summary="@string/dark_theme" />
@@ -42,6 +47,7 @@
             android:entries="@array/dark_theme_modes"
             android:entryValues="@array/dark_theme_modes_values"
             />
+            -->
         <SwitchPreferenceCompat
             android:key="forceenglish"
             android:summary="@string/force_english" />
@@ -60,6 +66,8 @@
             android:key="forcecards"
             android:summary="@string/force_cards_summary"
             android:title="@string/force_cards" />
+
+        <!--
         <Preference
             android:key="primary_color"
             android:summary="@string/primary_color"
@@ -68,6 +76,7 @@
             android:key="accent_color"
             android:summary="@string/accent_color"
             android:widgetLayout="@layout/preference_accent_color_view" />
+            -->
         <SwitchPreferenceCompat
             android:defaultValue="true"
             android:key="section_icons"

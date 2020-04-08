@@ -13,7 +13,6 @@
             android:id="@+id/nav_header_pic"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="?attr/colorSecondary"
             android:contentDescription="@string/app_name"
             android:scaleType="centerCrop"
             android:src="@drawable/logo" />
@@ -27,8 +26,7 @@
             android:layout_marginTop="@dimen/nav_header_fab_margin_top"
             android:layout_marginEnd="@dimen/nav_header_fab_margin_right"
             android:layout_marginBottom="@dimen/nav_header_fab_margin_bottom"
-            app:backgroundTint="?colorPrimary"
-            app:tint="?colorSecondary"
+            app:backgroundTint="@color/cyanea_accent_reference"
             app:fabSize="mini"
             app:srcCompat="@drawable/ic_gallery" />
     </io.codetail.widget.RevealFrameLayout>

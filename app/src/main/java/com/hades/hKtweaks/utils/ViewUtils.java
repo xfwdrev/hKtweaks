@@ -77,9 +77,9 @@ public class ViewUtils {
     }
 
     public static int getColorPrimaryColor(Context context) {
-        TypedValue value = new TypedValue();
-        context.getTheme().resolveAttribute(R.attr.colorPrimary, value, true);
-        return value.data;
+        //TypedValue value = new TypedValue();
+        //context.getTheme().resolveAttribute(R.attr.colorPrimary, value, true);
+        return context.getColor(R.color.cyanea_primary_reference);
     }
 
     public static int getColorPrimaryDarkColor(Context context) {
@@ -89,9 +89,9 @@ public class ViewUtils {
     }
 
     public static int getThemeAccentColor(Context context) {
-        TypedValue value = new TypedValue();
-        context.getTheme().resolveAttribute(R.attr.colorAccent, value, true);
-        return value.data;
+        //TypedValue value = new TypedValue();
+        //context.getTheme().resolveAttribute(R.attr.colorAccent, value, true);
+        return context.getColor(R.color.cyanea_accent_reference);
     }
 
     public interface OnDialogEditTextListener {
