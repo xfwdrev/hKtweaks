@@ -38,6 +38,7 @@ import android.widget.LinearLayout;
 import com.bumptech.glide.Glide;
 import com.hades.hKtweaks.R;
 import com.hades.hKtweaks.views.dialog.Dialog;
+import com.jaredrummler.cyanea.Cyanea;
 
 /**
  * Created by willi on 16.04.16.
@@ -79,19 +80,19 @@ public class ViewUtils {
     public static int getColorPrimaryColor(Context context) {
         //TypedValue value = new TypedValue();
         //context.getTheme().resolveAttribute(R.attr.colorPrimary, value, true);
-        return context.getColor(R.color.cyanea_primary_reference);
+        return Cyanea.getInstance().getPrimary();
     }
 
     public static int getColorPrimaryDarkColor(Context context) {
-        TypedValue value = new TypedValue();
-        context.getTheme().resolveAttribute(R.attr.colorPrimaryDark, value, true);
-        return value.data;
+        //TypedValue value = new TypedValue();
+        //context.getTheme().resolveAttribute(R.attr.colorPrimaryDark, value, true);
+        return Cyanea.getInstance().getPrimaryDark();
     }
 
     public static int getThemeAccentColor(Context context) {
         //TypedValue value = new TypedValue();
         //context.getTheme().resolveAttribute(R.attr.colorAccent, value, true);
-        return context.getColor(R.color.cyanea_accent_reference);
+        return Cyanea.getInstance().getAccent();
     }
 
     public interface OnDialogEditTextListener {

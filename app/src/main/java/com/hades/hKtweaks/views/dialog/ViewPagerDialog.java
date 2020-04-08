@@ -25,6 +25,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager2.widget.ViewPager2;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,9 +34,12 @@ import android.view.ViewTreeObserver;
 
 import com.hades.hKtweaks.R;
 import com.hades.hKtweaks.fragments.recyclerview.RecyclerViewFragment;
+import com.hades.hKtweaks.utils.ViewUtils;
 import com.viewpagerindicator.CirclePageIndicator;
 
 import java.util.List;
+
+import me.relex.circleindicator.CircleIndicator3;
 
 /**
  * Created by willi on 23.08.16.
@@ -64,9 +69,9 @@ public class ViewPagerDialog extends DialogFragment {
                              @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.viewpager_view, container, false);
 
-        ViewPager viewPager = rootView.findViewById(R.id.viewpager);
-        CirclePageIndicator indicator = rootView.findViewById(R.id.indicator);
-        viewPager.setAdapter(new RecyclerViewFragment.ViewPagerAdapter(getChildFragmentManager(), mFragments));
+        ViewPager2 viewPager = rootView.findViewById(R.id.viewpager);
+        CircleIndicator3 indicator = rootView.findViewById(R.id.indicator);
+        viewPager.setAdapter(new RecyclerViewFragment.ViewPagerAdapter(this, mFragments));
         indicator.setViewPager(viewPager);
 
         return rootView;
@@ -78,7 +83,7 @@ public class ViewPagerDialog extends DialogFragment {
         view.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver
                 .OnGlobalLayoutListener() {
             public void onGlobalLayout() {
-                view.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                view.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                 ViewGroup.LayoutParams params = view.getLayoutParams();
                 params.height = mHeight;
                 view.requestLayout();

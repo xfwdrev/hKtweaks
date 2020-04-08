@@ -4,7 +4,7 @@
     android:id="@+id/appbarlayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?attr/colorPrimary"
+    android:background="@color/cyanea_primary_reference"
     android:theme="@style/AppTheme.AppBarOverlay"
     app:elevation="@dimen/app_bar_elevation">
 

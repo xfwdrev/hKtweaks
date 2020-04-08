@@ -37,6 +37,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
@@ -44,6 +45,9 @@ import androidx.viewpager.widget.ViewPager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import androidx.appcompat.widget.Toolbar;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.widget.ViewPager2;
+
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -75,6 +79,7 @@ import java.util.concurrent.TimeUnit;
 
 import io.codetail.animation.SupportAnimator;
 import io.codetail.animation.ViewAnimationUtils;
+import me.relex.circleindicator.CircleIndicator3;
 
 /**
  * Created by willi on 16.04.16.
@@ -97,9 +102,9 @@ public abstract class RecyclerViewFragment extends BaseFragment {
     private List<Fragment> mViewPagerFragments;
     private ViewPagerAdapter mViewPagerAdapter;
     private View mViewPagerParent;
-    private ViewPager mViewPager;
+    private ViewPager2 mViewPager;
     private View mViewPagerShadow;
-    private CirclePageIndicator mCirclePageIndicator;
+    private CircleIndicator3 mCirclePageIndicator;
 
     private FloatingActionButton mTopFab;
     private FloatingActionButton mBottomFab;
@@ -373,8 +378,9 @@ public abstract class RecyclerViewFragment extends BaseFragment {
     public void onViewFinished() {
         super.onViewFinished();
         if (showViewPager() && !hideBanner()) {
-            mViewPager.setAdapter(mViewPagerAdapter = new ViewPagerAdapter(getChildFragmentManager(),
+            mViewPager.setAdapter(mViewPagerAdapter = new ViewPagerAdapter(this,
                     mViewPagerFragments));
+            mViewPager.setBackgroundColor(ViewUtils.getColorPrimaryColor(getContext()));
             mCirclePageIndicator.setViewPager(mViewPager);
 
             setAppBarLayoutAlpha(0);
@@ -424,7 +430,7 @@ public abstract class RecyclerViewFragment extends BaseFragment {
         Activity activity;
         if ((activity = getActivity()) != null && mAppBarLayout != null && mToolBar != null) {
             int colorPrimary = ViewUtils.getColorPrimaryColor(activity);
-            mAppBarLayout.setBackgroundDrawable(new ColorDrawable(Color.argb(alpha, Color.red(colorPrimary),
+            mAppBarLayout.setBackground(new ColorDrawable(Color.argb(alpha, Color.red(colorPrimary),
                     Color.green(colorPrimary), Color.blue(colorPrimary))));
             mToolBar.setTitleTextColor(Color.argb(alpha, 255, 255, 255));
         }
@@ -500,23 +506,24 @@ public abstract class RecyclerViewFragment extends BaseFragment {
         }
     }
 
-    public static class ViewPagerAdapter extends FragmentPagerAdapter {
+    public static class ViewPagerAdapter extends FragmentStateAdapter {
 
-        private final List<Fragment> mFragments;
+        private final List<Fragment> mFragmentList;
 
-        public ViewPagerAdapter(FragmentManager fragmentManager, List<Fragment> fragments) {
-            super(fragmentManager);
-            mFragments = fragments;
+        public ViewPagerAdapter(@NonNull Fragment fragment, List<Fragment> mFragmentList) {
+            super(fragment);
+            this.mFragmentList = mFragmentList;
+        }
+
+        @NonNull
+        @Override
+        public Fragment createFragment(int position) {
+            return mFragmentList.get(position);
         }
 
         @Override
-        public Fragment getItem(int position) {
-            return mFragments.get(position);
-        }
-
-        @Override
-        public int getCount() {
-            return mFragments == null ? 0 : mFragments.size();
+        public int getItemCount() {
+            return mFragmentList.size();
         }
     }
 

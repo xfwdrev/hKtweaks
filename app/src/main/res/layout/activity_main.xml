@@ -8,21 +8,22 @@
         android:id="@+id/splash_background"
         android:layout_width="match_parent"
         android:layout_height="160dp"
-        android:background="?attr/colorPrimary" />
+        android:background="@color/cyanea_primary_reference" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="68dp"
-        android:background="?attr/colorPrimaryDark"
+        android:background="@color/cyanea_primary_reference"
         android:gravity="center_vertical"
-        android:paddingLeft="38dp"
+        android:paddingEnd="38dp"
         android:paddingStart="38dp"
         android:text="@string/checking_info"
-        android:textColor="@color/white"
+        android:textColor="?colorAccent"
         android:textSize="22sp" />
 
     <FrameLayout
         android:layout_width="match_parent"
+        android:background="?backgroundColor"
         android:layout_height="match_parent">
 
         <LinearLayout
