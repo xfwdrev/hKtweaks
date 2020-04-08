@@ -29,6 +29,8 @@ import androidx.core.content.ContextCompat;
 import androidx.core.view.MotionEventCompat;
 import androidx.core.view.ViewConfigurationCompat;
 import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager2.widget.ViewPager2;
+
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -44,15 +46,15 @@ import static android.widget.LinearLayout.VERTICAL;
  * Draws circles (one for each view). The current view position is filled and
  * others are only stroked.
  */
-public class CirclePageIndicator extends View implements PageIndicator {
+public class CirclePageIndicator extends View implements PageIndicator{
     private static final int INVALID_POINTER = -1;
 
     private float mRadius;
     private final Paint mPaintPageFill = new Paint(ANTI_ALIAS_FLAG);
     private final Paint mPaintStroke = new Paint(ANTI_ALIAS_FLAG);
     private final Paint mPaintFill = new Paint(ANTI_ALIAS_FLAG);
-    private ViewPager mViewPager;
-    private ViewPager.OnPageChangeListener mListener;
+    private ViewPager2 mViewPager;
+    private ViewPager2.OnPageChangeCallback mListener;
     private int mCurrentPage;
     private int mSnapPage;
     private float mPageOffset;
@@ -210,7 +212,7 @@ public class CirclePageIndicator extends View implements PageIndicator {
         if (mViewPager == null) {
             return;
         }
-        final int count = mViewPager.getAdapter().getCount();
+        final int count = mViewPager.getAdapter().getItemCount();
         if (count < 2) {
             return;
         }
@@ -294,7 +296,7 @@ public class CirclePageIndicator extends View implements PageIndicator {
         if (super.onTouchEvent(ev)) {
             return true;
         }
-        if ((mViewPager == null) || (mViewPager.getAdapter().getCount() == 0)) {
+        if ((mViewPager == null) || (mViewPager.getAdapter().getItemCount() == 0)) {
             return false;
         }
 
@@ -329,7 +331,7 @@ public class CirclePageIndicator extends View implements PageIndicator {
             case MotionEvent.ACTION_CANCEL:
             case MotionEvent.ACTION_UP:
                 if (!mIsDragging) {
-                    final int count = mViewPager.getAdapter().getCount();
+                    final int count = mViewPager.getAdapter().getItemCount();
                     final int width = getWidth();
                     final float halfWidth = width / 2f;
                     final float sixthWidth = width / 6f;
@@ -374,23 +376,23 @@ public class CirclePageIndicator extends View implements PageIndicator {
     }
 
     @Override
-    public void setViewPager(ViewPager view) {
+    public void setViewPager(ViewPager2 view) {
         if (mViewPager == view) {
             return;
         }
         if (mViewPager != null) {
-            mViewPager.removeOnPageChangeListener(this);
+            mViewPager.unregisterOnPageChangeCallback(mListener);
         }
         if (view.getAdapter() == null) {
             throw new IllegalStateException("ViewPager does not have adapter instance.");
         }
         mViewPager = view;
-        mViewPager.addOnPageChangeListener(this);
+        mViewPager.registerOnPageChangeCallback(mListener);
         invalidate();
     }
 
     @Override
-    public void setViewPager(ViewPager view, int initialPosition) {
+    public void setViewPager(ViewPager2 view, int initialPosition) {
         setViewPager(view);
         setCurrentItem(initialPosition);
     }
@@ -443,10 +445,6 @@ public class CirclePageIndicator extends View implements PageIndicator {
         }
     }
 
-    @Override
-    public void setOnPageChangeListener(ViewPager.OnPageChangeListener listener) {
-        mListener = listener;
-    }
 
     /*
      * (non-Javadoc)
@@ -478,7 +476,7 @@ public class CirclePageIndicator extends View implements PageIndicator {
             result = specSize;
         } else {
             //Calculate the width according the views count
-            final int count = mViewPager.getAdapter().getCount();
+            final int count = mViewPager.getAdapter().getItemCount();
             result = (int) (getPaddingLeft() + getPaddingRight()
                     + (count * 2 * mRadius) + (count - 1) * (mRadius + mExtraSpacing) + 1);
             //Respect AT_MOST value if that was what is called for by measureSpec

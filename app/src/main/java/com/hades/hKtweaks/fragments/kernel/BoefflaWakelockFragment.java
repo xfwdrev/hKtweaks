@@ -140,7 +140,7 @@ public class BoefflaWakelockFragment extends RecyclerViewFragment {
                 -> mAlertCheckbox = isChecked);
 
 
-        AlertDialog.Builder alert = new AlertDialog.Builder(Objects.requireNonNull(getActivity()));
+        AlertDialog.Builder alert = new AlertDialog.Builder(Objects.requireNonNull(getActivity()), R.style.DialogeTheme);
         alert.setTitle(getString(R.string.wkl_alert_title));
         alert.setMessage(getString(R.string.wkl_alert_message));
         alert.setView(checkBoxView);

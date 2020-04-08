@@ -9,9 +9,8 @@
         <item name="android:textAlignment">gravity</item>
         <item name="android:textDirection">locale</item>
         <item name="dim_dialog_background">@color/dim_foreground_disabled_material_dark</item>
-        <item name="android:statusBarColor">?backgroundColor</item>
-        <item name="android:windowTranslucentStatus">false</item>
-        <item name="android:windowContentTransitions">true</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
     </style>
 
     <style name="AppThemeDark" parent="Theme.Cyanea.Dark">
@@ -48,7 +47,10 @@
     <style name="ItemTextAppearance">
         <item name="android:ellipsize">middle</item>
     </style>
-
+    <style name="DialogeTheme" parent="Theme.MaterialComponents.Dialog.Alert">
+        <item name="android:background">@color/cyanea_primary_reference</item>
+        <item name="colorAccent">@color/cyanea_accent_reference</item>
+    </style>
     <style name="Base.Widget.AppCompat.CompoundButton.CheckBox.Custom">
         <item name="colorControlNormal">@color/white</item>
         <item name="colorControlActivated">?attr/colorAccent</item>
