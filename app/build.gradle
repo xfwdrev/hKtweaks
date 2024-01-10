@@ -7,8 +7,8 @@ android {
         applicationId 'com.hades.hKtweaks'
         minSdk 29
         targetSdk 31
-        versionCode 222
-        versionName "2.2.2"
+        versionCode 223
+        versionName "2.2.3"
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
