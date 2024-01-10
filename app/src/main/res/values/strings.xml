@@ -781,6 +781,8 @@
     <string name="store_mode_max_summary">If current battery capacity &lt; Store Mode Maximum, then charging will STOP when it reaches this MAX value.</string>
     <string name="store_mode_min">Store Mode MIN</string>
     <string name="store_mode_min_summary">If current battery capacity > Store Mode Minimum, then charging will START when it reaches this MIN value.</string>
+    <string name="disable_charging">Disable Charging</string>
+    <string name="disable_charging_summary">Enable this option to disable charging the battery, so that the phone will run directly from AC. This option is only effective when the battery is 30% charged or more. The cable does not have to be replugged for it to take effect.</string>
     <string name="level">Level</string>
     <string name="voltage">Voltage</string>
     <string name="current_now">Current Now</string>

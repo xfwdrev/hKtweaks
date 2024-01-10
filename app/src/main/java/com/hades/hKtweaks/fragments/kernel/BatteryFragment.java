@@ -197,6 +197,24 @@ public class BatteryFragment extends RecyclerViewFragment {
             items.add(storeCard);
         }
 
+        CardView disableChargingCard = new CardView(getActivity());
+        disableChargingCard.setTitle(getString(R.string.disable_charging));
+        disableChargingCard.setFullSpan(true);
+
+        if (mBattery.hasDisableCharging()) {
+            SwitchView disableCharging = new SwitchView();
+            disableCharging.setTitle(getString(R.string.disable_charging));
+            disableCharging.setSummary(getString(R.string.disable_charging_summary));
+            disableCharging.setChecked(mBattery.isDisableChargingEnabled());
+            disableCharging.addOnSwitchListener((switchView, isChecked)
+                    -> mBattery.enableDisableCharging(isChecked, getActivity()));
+
+            disableChargingCard.addItem(disableCharging);
+
+            if (disableChargingCard.size() > 0) {
+                items.add(disableChargingCard);
+            }
+        }
 
         CardView hvPower = new CardView(getActivity());
         hvPower.setTitle(getString(R.string.hv_power_supply));

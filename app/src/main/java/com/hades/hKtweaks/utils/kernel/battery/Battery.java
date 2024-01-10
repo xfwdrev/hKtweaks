@@ -110,6 +110,7 @@ public class Battery {
     private static final String STORE_MODE = "/sys/devices/battery/power_supply/battery/store_mode";
     private static final String STORE_MODE_MAX = "/sys/module/sec_battery/parameters/store_mode_max";
     private static final String STORE_MODE_MIN = "/sys/module/sec_battery/parameters/store_mode_min";
+    private static final String DISABLE_CHARGING = "/sys/devices/platform/battery/power_supply/battery/charging_enabled";
 
     private Battery(Context context) {
         if (BATTERY_NODE == null) {
@@ -239,6 +240,18 @@ public class Battery {
 
     public void setStoreModeMin(int value, Context context){
         run(Control.write(String.valueOf(value), STORE_MODE_MIN), STORE_MODE_MIN, context);
+    }
+
+    public boolean hasDisableCharging(){
+        return (Utils.existFile(DISABLE_CHARGING));
+    }
+
+    public boolean isDisableChargingEnabled(){
+        return !Utils.readFile(DISABLE_CHARGING).equals("1");
+    }
+
+    public void enableDisableCharging(boolean enable, Context context){
+        run(Control.write(enable ? "0" : "1", DISABLE_CHARGING), DISABLE_CHARGING, context);
     }
 
     public void setChargingCurrent(int value, Context context) {
