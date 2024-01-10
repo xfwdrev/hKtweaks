@@ -48,7 +48,7 @@ public class Misc {
     private static final String GENTLE_FAIR_SLEEPERS = "/sys/kernel/sched/gentle_fair_sleepers";
     private static final String ARCH_POWER = "/sys/kernel/sched/arch_power";
     private static final String TCP_AVAILABLE_CONGESTIONS = "/proc/sys/net/ipv4/tcp_available_congestion_control";
-    private static final String TCP_ENABLED_CONGESTION = "/proc/sys/net/ipv4/tcp_congestion_control";
+    private static final String TCP_CURRENT_CONGESTION = "/proc/sys/net/ipv4/tcp_congestion_control";
     private static final String HOSTNAME_KEY = "net.hostname";
     private static final String WIREGUARD = "/sys/module/wireguard/version";
     private static final String MAGISK_BIN = "/res/magisk";
