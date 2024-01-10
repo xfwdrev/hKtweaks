@@ -1,9 +1,9 @@
 {
-  "latestVersion": "2.2.2",
-  "latestVersionCode": "222",
-  "url": "https://github.com/corsicanu/hKtweaks/releases/download/v2.2.2/hKtweaks_v2.2.2.apk",
+  "latestVersion": "2.2.3",
+  "latestVersionCode": "223",
+  "url": "https://github.com/ExtremeXT/hKtweaks/releases/download/v2.2.3/hKtweaks_v2.2.3.apk",
   "releaseNotes": [
     "Changelog:",
-    "- fix crashes when changing frequencies, disabling/enabling wakelocks and probably others"
+    "Implement Disable Charging function, fix TCP congestion algorithm detection - ExtremeXT"
   ]
 }

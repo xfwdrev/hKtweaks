@@ -4,10 +4,6 @@ hKtweaks is a fork of MoroGoku's [MTweaks](https://github.com/morogoku/MTweaks-K
 
 Thanks to Willi Ye for this great application.
 
-
-### If you like my work and want to keep me going, feel free to hit the paypal button below to buy me a coffee!
-[![PayPal](https://www.paypalobjects.com/webstatic/mktg/Logo/pp-logo-200px.png)](https://paypal.me/corsicanu)
-
 ## Credits
 * Willi Ye, author of [KernelAdiutor](https://github.com/Grarak/KernelAdiutor)
 
@@ -49,6 +45,7 @@ _(Many sys interface paths has been taken from his [UKM-Project](https://github.
     Copyright (C) 2015-2016 Willi Ye <williye97@gmail.com>
     Copyright (C) 2017 morogoku <morogoku@hotmail.com>
     Copyright (C) 2019-2020 corsicanu <corsicanu22@gmail.com>
+    Copyright (C) 2024 ExtremeXT <75576145+ExtremeXT@users.noreply.github.com>
 	
     
     hKtweaks is free software: you can redistribute it and/or modify
