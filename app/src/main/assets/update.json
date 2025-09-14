@@ -1,9 +1,10 @@
 {
   "latestVersion": "2.2.3",
   "latestVersionCode": "223",
-  "url": "https://github.com/ExtremeXT/hKtweaks/releases/download/v2.2.3/hKtweaks_v2.2.3.apk",
+  "url": "https://github.com/xfwdrev/hKtweaks/releases/download/v2.2.3/hKtweaks_v2.2.3.apk",
   "releaseNotes": [
     "Changelog:",
-    "Implement Disable Charging function, fix TCP congestion algorithm detection - ExtremeXT"
+    "Implement Disable Charging function, fix TCP congestion algorithm detection - ExtremeXT",
+    "Add new path for Disable Charging function - xfwdrev"
   ]
 }
