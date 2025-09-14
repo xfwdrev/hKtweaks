@@ -47,13 +47,15 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal" />
 
-        <org.adw.library.widgets.discreteseekbar.DiscreteSeekBar
+        <com.google.android.material.slider.Slider
             android:id="@+id/seekbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            app:dsb_indicatorPopupEnabled="false"
-            app:dsb_progressColor="?attr/colorAccent" />
+            android:layout_weight="1"
+            app:trackHeight="4dp"
+            app:thumbRadius="8dp"
+            app:haloRadius="12dp" />
 
         <LinearLayout
             android:layout_width="match_parent"

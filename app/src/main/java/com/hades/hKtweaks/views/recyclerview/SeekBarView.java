@@ -24,8 +24,7 @@ import android.view.View;
 
 import com.hades.hKtweaks.R;
 import com.hades.hKtweaks.utils.Log;
-
-import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
+import com.google.android.material.slider.Slider;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +43,7 @@ public class SeekBarView extends RecyclerViewItem {
     private AppCompatTextView mTitle;
     private AppCompatTextView mSummary;
     private AppCompatTextView mValue;
-    private DiscreteSeekBar mSeekBar;
+    private Slider mSeekBar;
 
     private CharSequence mTitleText;
     private CharSequence mSummaryText;
@@ -73,43 +72,51 @@ public class SeekBarView extends RecyclerViewItem {
         mSeekBar = view.findViewById(R.id.seekbar);
 
         view.findViewById(R.id.button_minus).setOnClickListener(v -> {
-            if(mEnabled) {
-                mSeekBar.setProgress(mSeekBar.getProgress() - 1);
+            if (mEnabled) {
+                int current = (int) mSeekBar.getValue();
+                mSeekBar.setValue(current - 1);
+
                 if (mOnSeekBarListener != null && mProgress < mItems.size() && mProgress >= 0) {
                     mOnSeekBarListener.onStop(SeekBarView.this, mProgress, mItems.get(mProgress));
                 }
             }
         });
+
         view.findViewById(R.id.button_plus).setOnClickListener(v -> {
             if (mEnabled) {
-                mSeekBar.setProgress(mSeekBar.getProgress() + 1);
+                int current = (int) mSeekBar.getValue();
+                mSeekBar.setValue(current + 1);
+
                 if (mOnSeekBarListener != null && mProgress < mItems.size() && mProgress >= 0) {
                     mOnSeekBarListener.onStop(SeekBarView.this, mProgress, mItems.get(mProgress));
                 }
             }
         });
 
-        mSeekBar.setOnProgressChangeListener(new DiscreteSeekBar.OnProgressChangeListener() {
-            @Override
-            public void onProgressChanged(DiscreteSeekBar seekBar, int value, boolean fromUser) {
-                if (value < mItems.size() && value >= 0) {
-                    mProgress = value;
-                    String text = mItems.get(value);
-                    if (mUnit != null) text += mUnit;
-                    mValue.setText(text);
-                    if (mOnSeekBarListener != null) {
-                        mOnSeekBarListener.onMove(
-                                SeekBarView.this, mProgress, mItems.get(mProgress));
-                    }
+        mSeekBar.addOnChangeListener((slider, value, fromUser) -> {
+            int intValue = (int) value;  // cast float → int
+
+            if (intValue < mItems.size() && intValue >= 0) {
+                mProgress = intValue;
+                String text = mItems.get(intValue);
+                if (mUnit != null) text += mUnit;
+                mValue.setText(text);
+
+                if (mOnSeekBarListener != null) {
+                    mOnSeekBarListener.onMove(
+                            SeekBarView.this, mProgress, mItems.get(mProgress));
                 }
             }
+        });
 
+        mSeekBar.addOnSliderTouchListener(new Slider.OnSliderTouchListener() {
             @Override
-            public void onStartTrackingTouch(DiscreteSeekBar seekBar) {
+            public void onStartTrackingTouch(Slider slider) {
+                // same as DiscreteSeekBar onStartTrackingTouch
             }
 
             @Override
-            public void onStopTrackingTouch(DiscreteSeekBar seekBar) {
+            public void onStopTrackingTouch(Slider slider) {
                 try {
                     if (mOnSeekBarListener != null) {
                         mOnSeekBarListener.onStop(
@@ -207,24 +214,24 @@ public class SeekBarView extends RecyclerViewItem {
             }
         }
         if (mSeekBar != null) {
-            mSeekBar.setMax(mItems.size() - 1);
-            mSeekBar.setMin(0);
-            mSeekBar.setAlpha(mAlpha);
+            // Set range
+            mSeekBar.setValueFrom(0);
+            mSeekBar.setValueTo(mItems.size() - 1);
+
+            // Enabled state & alpha
             mSeekBar.setEnabled(mEnabled);
+            mSeekBar.setAlpha(mEnabled ? 1f : 0.4f);
+
+            // Set initial value & text
             if (mValue != null) {
                 try {
                     String text = mItems.get(mProgress);
-                    mSeekBar.setProgress(mProgress);
+                    mSeekBar.setValue(mProgress); // instead of setProgress
                     if (mUnit != null) text += mUnit;
                     mValue.setText(text);
                 } catch (Exception ignored) {
                     mValue.setText(mValue.getResources().getString(R.string.not_in_range));
                 }
-            }
-            if(mEnabled){
-                mSeekBar.setAlpha(1f);
-            } else {
-                mSeekBar.setAlpha(0.4f);
             }
         }
     }

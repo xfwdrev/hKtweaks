@@ -33,8 +33,7 @@ import com.hades.hKtweaks.fragments.BaseFragment;
 import com.hades.hKtweaks.utils.AppSettings;
 import com.hades.hKtweaks.utils.Utils;
 import com.hades.hKtweaks.utils.ViewUtils;
-
-import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
+import com.google.android.material.slider.Slider;
 
 /**
  * Created by willi on 09.08.16.
@@ -85,33 +84,38 @@ public class BannerResizerActivity extends BaseActivity {
             final TextView text = rootView.findViewById(R.id.seekbar_text);
             text.setText(Utils.strFormat("%d" + getString(R.string.px), px));
 
-            final DiscreteSeekBar seekBar = rootView.findViewById(R.id.seekbar);
-            seekBar.setMax(maxHeight - minHeight);
-            seekBar.setProgress(px - minHeight);
-            seekBar.setOnProgressChangeListener(new DiscreteSeekBar.OnProgressChangeListener() {
+            final Slider seekBar = rootView.findViewById(R.id.seekbar);
+            seekBar.setValueFrom(minHeight);
+            seekBar.setValueTo(maxHeight);
+            seekBar.setValue(px);
+
+            seekBar.addOnChangeListener((s, value, fromUser) -> {
+                text.setText(Utils.strFormat("%d" + getString(R.string.px), (int) value));
+                setHeight(banner, (int) value);
+            });
+
+            seekBar.addOnSliderTouchListener(new Slider.OnSliderTouchListener() {
                 @Override
-                public void onProgressChanged(DiscreteSeekBar seekBar, int value, boolean fromUser) {
-                    text.setText(Utils.strFormat("%d" + getString(R.string.px), value + minHeight));
-                    setHeight(banner, value + minHeight);
+                public void onStartTrackingTouch(Slider slider) {
+                    // nothing
                 }
 
                 @Override
-                public void onStartTrackingTouch(DiscreteSeekBar seekBar) {
-                }
-
-                @Override
-                public void onStopTrackingTouch(DiscreteSeekBar seekBar) {
+                public void onStopTrackingTouch(Slider slider) {
+                    // nothing
                 }
             });
 
-            rootView.findViewById(R.id.cancel).setOnClickListener(v
-                    -> seekBar.setProgress(px - minHeight));
+            rootView.findViewById(R.id.cancel).setOnClickListener(v ->
+                    seekBar.setValue(px)
+            );
 
-            rootView.findViewById(R.id.restore).setOnClickListener(v
-                    -> seekBar.setProgress(defaultHeight - minHeight));
+            rootView.findViewById(R.id.restore).setOnClickListener(v ->
+                    seekBar.setValue(defaultHeight)
+            );
 
             rootView.findViewById(R.id.done).setOnClickListener(v -> {
-                AppSettings.saveBannerSize(seekBar.getProgress() + minHeight, getActivity());
+                AppSettings.saveBannerSize((int) seekBar.getValue(), getActivity());
                 getActivity().finish();
             });
 
